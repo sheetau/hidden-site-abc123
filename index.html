@@ -78,15 +78,15 @@
     .skills-grid {
         height: 50%;
         display: grid;
-        grid-template-columns: repeat(4, 1fr); /* 4列 */
-        grid-template-rows: repeat(2, 1fr); /* 2行 */
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
         margin-top: 2.5vw;
     }
 
     .skill {
         display: flex;
-        justify-content: flex-start; /* 左寄せ */
-        align-items: flex-start; /* 上寄せ */
+        justify-content: flex-start;
+        align-items: flex-start;
         color: white;
         font-size: 1.5vw;
         text-align: left;
@@ -100,7 +100,7 @@
         letter-spacing: 0.5em;
     }
     .skill:last-child {
-        background-color: transparent; /* 最後の空欄を透明にする */
+        background-color: transparent;
     }
     .center {
         display: flex;
@@ -118,13 +118,11 @@
         position: relative;
         z-index: 2;
     }
-    /* 黒色のベーステキスト */
     .center-text1 {
         color: black;
         white-space: nowrap;
         margin: 0 0 8vh 0;
     }
-    /* 白色のクリップパスが適用されるテキスト */
     .center-text1-copy {
         color: black;
         white-space: nowrap;
@@ -194,8 +192,8 @@
             font-size: 2vw;
         }
         .skills-grid {
-            grid-template-columns: repeat(2, 1fr); /* 横2列 */
-            grid-template-rows: repeat(4, 1fr); /* 縦4列 */
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(4, 1fr);
         }
         .skill {
             font-size: 3vw;
@@ -348,15 +346,14 @@
                 wallpaper.style.opacity = '1';
                 const rect = centerText1Copy.getBoundingClientRect();
                 const width = rect.width;
-                const position = (event.clientX - rect.left) / width; // カーソル位置を0〜1で取得
+                const position = (event.clientX - rect.left) / width;
 
                 const gifIndex = Math.floor(position * 4); // 4分割
                 gifContainers.forEach((container, index) => {
                     if (index === gifIndex) {
                         container.style.display = 'block';
-                        // カーソルが画像の中心になるように位置を調整
                         const img = container.querySelector('img');
-                        const imgRect = img.getBoundingClientRect(); // 画像の実際のサイズを取得
+                        const imgRect = img.getBoundingClientRect();
                         const imgWidth = imgRect.width;
                         const imgHeight = imgRect.height;
                         const textRect = centerText1Copy.getBoundingClientRect();
