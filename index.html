@@ -1,0 +1,382 @@
+<style>
+    @font-face {
+        font-family: 'Moneta-Regular';
+        src: url('Moneta-Regular.ttf') format('truetype');
+        font-weight: normal;
+    }
+    @font-face {
+        font-family: 'Moneta-Bold';
+        src: url('Moneta-Bold.ttf') format('truetype');
+        font-weight: bold;
+    }
+    @font-face {
+        font-family: 'kozminpro-light';
+        src: url('kozminpro-light.otf') format('opentype');
+        font-weight: 100;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+        font-family: 'Moneta-Regular', 'kozminpro-light', serif;
+        user-select: none;
+    }
+    .corner-text {
+        margin: 5vh;
+        position: absolute;
+        font-size: 3vh;
+        color: black;
+        transition: opacity 0.3s, color 0.3s;
+        z-index: 4;
+    }
+    .top-left {
+        top: 10px;
+        left: 10px;
+        font-style: italic;
+        cursor: pointer;
+    }
+    .top-right {
+        top: 10px;
+        right: 10px;
+    }
+    .black-overlay {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: left 0.5s ease;
+    }
+    .description {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        height: 60%;
+        color: white;
+    }
+    .name {
+        font-size: 5vh;
+        font-weight: 100;
+        margin: 0 0 0.5vw 0;
+    }
+    .description p {
+        line-height: 1.25em;
+        font-size: 2vh;
+    }
+    .skills-grid {
+        height: 50%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4列 */
+        grid-template-rows: repeat(2, 1fr); /* 2行 */
+        margin-top: 2.5vw;
+    }
+
+    .skill {
+        display: flex;
+        justify-content: flex-start; /* 左寄せ */
+        align-items: flex-start; /* 上寄せ */
+        color: white;
+        font-size: 1.5vw;
+        text-align: left;
+        line-height: 1.1em;
+        flex-direction: column;
+        margin-bottom: 2vw;
+    }
+
+    .skill span {
+        font-size: 0.4vw;
+        letter-spacing: 0.5em;
+    }
+    .skill:last-child {
+        background-color: transparent; /* 最後の空欄を透明にする */
+    }
+    .center {
+        display: flex;
+        flex-direction: column;
+    }
+    .center-text {
+        font-size: 10vw;
+        font-weight: lighter;
+        text-align: left;
+        line-height: 0.75;
+        color: black;
+        transition: color 0.3s, opacity 0.3s;
+    }
+    .text-container {
+        position: relative;
+        z-index: 2;
+    }
+    /* 黒色のベーステキスト */
+    .center-text1 {
+        color: black;
+        white-space: nowrap;
+        margin: 0 0 8vh 0;
+    }
+    /* 白色のクリップパスが適用されるテキスト */
+    .center-text1-copy {
+        color: black;
+        white-space: nowrap;
+        margin: 0 0 8vh 0;
+    }
+    .center-text2 {
+        margin: 0;
+        z-index: 0;
+    }
+    .center-text2:hover {
+        color: white;
+    }
+    .center-text2:hover ~ .center-text1,
+    .center-text2:hover ~ .corner-text {
+        opacity: 0;
+    }
+    a {
+        color: black;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+    video#background-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+    }
+    .center-text2:hover + video#background-video {
+        opacity: 1;
+    }
+    .gif-container {
+        position: absolute;
+        pointer-events: none;
+        display: none;
+        z-index: 0;
+    }
+
+    .gif-container img {
+        position: absolute;
+        width: 25vw;
+        height: auto;
+        transition: opacity 0.3s;
+    }
+    .wallpaper-description {
+        font-family: 'kozminpro-light', serif;
+        opacity: 0;
+        transition: opacity 0.3s;
+        position: absolute;
+        bottom: 2vw;
+        left: 2vw;
+        font-size: 2vh;
+        color: black;
+        line-height: 1.25em;
+    }
+
+    @media (max-width: 1000px) {
+        .name {
+            font-size: 5vw;
+        }
+        .description p {
+            font-size: 2vw;
+        }
+        .skills-grid {
+            grid-template-columns: repeat(2, 1fr); /* 横2列 */
+            grid-template-rows: repeat(4, 1fr); /* 縦4列 */
+        }
+        .skill {
+            font-size: 3vw;
+        }
+        .skill span {
+            font-size: 0.75vw;
+        }
+        .wallpaper-description {
+            font-size: 2vw;
+        }
+    }
+</style>
+
+</head>
+<body>
+    <video id="background-video" src="video.mp4" muted></video>
+    <div class="corner-text top-left">MasatoTanaka</div>
+    <div class="corner-text top-right"><a href="https://www.youtube.com/@sheetau" target="_blank">Youtube</a></div>
+    <div class="center">
+        <div class="text-container">
+            <h1 class="center-text center-text1">UI Design<br>+ Programming</h1>
+            <h1 class="center-text center-text1-copy">UI Design<br>+ Programming</h1>
+        </div>
+        <h1 class="center-text center-text2">Video Editing</h1>
+    </div>
+    <div class="wallpaper-description">ウェブサイトをデスクトップ壁紙として転用できるWallpaper Engineというソフト用にHTML・CSS・Javascriptを使用して制作した、操作・情報認識可能なデスクトップ壁紙</div>
+    <div class="black-overlay">
+        <div class="description">
+            <h1 class="name">田中誠人</h1>
+            <p class="introduction">高校卒業後、主に飲食店でアルバイトをしながら、自宅のパソコンで独学で自分の作りたいものをひたすら作り続けてきました。興味を持ったことにはとことん熱中するタイプで、大学には進学せず、デザインや動画編集、コーディングなどを自分で学びながら実践し、実際に自分の手で形にしてきました。<br><br>実務経験はありませんが、これまでの制作経験を通して培ったソフトウェアスキルや各分野の総合的な知識は、経験者に劣ることはないと自負しています。多様な知識を活かし、柔軟なアプローチで課題解決に取り組むことができると考えています。</p>
+            <div class="skills-grid">
+                <div class="skill">Illustrator<span>●●●●●</span></div>
+                <div class="skill">Photoshop<span>●●●●●</span></div>
+                <div class="skill">PremierePro<span>●●●◐○</span></div>
+                <div class="skill">AfterEffects<span>●●●◐○</span></div>
+                <div class="skill">HTML<span>●●●●○</span></div>
+                <div class="skill">CSS<span>●●●●○</span></div>
+                <div class="skill">Javascript<span>●●●○○</span></div>
+                <div class="skill"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const body = document.querySelector('body');
+        const video = document.getElementById('background-video');
+        const target = document.querySelector('.center-text2');
+        const textContainer = document.querySelector('.text-container')
+        const centerText1 = document.querySelector('.center-text1');
+        const centerText1Copy = document.querySelector('.center-text1-copy');
+        const blackOverlay = document.querySelector('.black-overlay');
+        const sheeta = document.querySelector('.top-left');
+        const youtube = document.querySelector('.top-right a');
+        const wallpaper = document.querySelector('.wallpaper-description');
+        let toggle = false;
+        
+        sheeta.addEventListener('click', () => {
+            toggle = !toggle;
+            if (toggle) {
+                blackOverlay.style.left = '0%';
+                sheeta.style.color = 'white';
+                youtube.style.color = 'white';
+            } else {
+                blackOverlay.style.left = '-100%';
+                sheeta.style.color = 'black';
+                youtube.style.color = 'black';
+            }
+        });
+
+        function updateCenterText1Height() {
+            const centerText1Height = centerText1.getBoundingClientRect().height;
+            centerText1Copy.style.margin = `calc(-${centerText1Height}px - 8vh) 0 8vh 0`;
+        }
+        function updateTextRect() {
+            return centerText1.getBoundingClientRect();
+        }
+
+        // 初期設定とウィンドウサイズ変更時に実行
+        updateCenterText1Height();
+        window.addEventListener('resize', updateCenterText1Height);
+
+        const gifs = ['gif1.gif', 'gif2.gif', 'gif3.gif', 'gif4.gif'];
+        const gifContainers = gifs.map((gif, index) => {
+            const container = document.createElement('div');
+            container.classList.add('gif-container');
+            const img = document.createElement('img');
+            img.src = gif;
+            if (gif === 'gif1.gif' || gif === 'gif2.gif') {
+                img.style.transform = 'scale(2.25)';
+            }
+            if (gif === 'gif3.gif') {
+                img.style.transform = 'scale(1.5)';
+            }
+            container.appendChild(img);
+            document.body.appendChild(container);
+            return container;
+        });
+
+        // 画像がロードされるまで待機
+        const imagesLoaded = gifContainers.map(container => new Promise(resolve => {
+            const img = container.querySelector('img');
+            img.onload = () => resolve(container);
+        }));
+
+        // 全ての画像がロードされるのを待つ
+        Promise.all(imagesLoaded).then(() => {
+            gifContainers.forEach(container => container.style.display = 'none');
+
+            target.addEventListener('mouseenter', () => {
+                wallpaper.style.opacity = '0';
+                video.style.opacity = '1';
+                video.play();
+            });
+            
+            target.addEventListener('mouseleave', () => {
+                video.style.opacity = '0';
+                setTimeout(() => video.pause(), 300);
+                gifContainers.forEach(container => container.style.display = 'none');
+            });
+
+            video.addEventListener('ended', () => {
+                video.currentTime = 0;
+                video.play();
+            });
+
+            centerText1Copy.addEventListener('mouseenter', () => {
+                gifContainers.forEach(container => container.style.display = 'block');
+                wallpaper.style.opacity = '1';
+                centerText1Copy.style.opacity = '1';
+                centerText1Copy.style.color = 'white';
+                gifContainers.forEach(container => {
+                    const img = container.querySelector('img');
+                    img.style.opacity = '1';
+                });
+            });
+
+            centerText1Copy.addEventListener('mouseleave', () => {
+                gifContainers.forEach(container => container.style.display = 'none');
+                wallpaper.style.opacity = '0';
+                centerText1Copy.style.opacity = '0';
+                gifContainers.forEach(container => {
+                    const img = container.querySelector('img');
+                    img.style.opacity = '0';
+                });
+            });
+
+            textContainer.addEventListener('mousemove', (event) => {
+                centerText1Copy.style.color = 'white';
+                wallpaper.style.opacity = '1';
+                const rect = centerText1Copy.getBoundingClientRect();
+                const width = rect.width;
+                const position = (event.clientX - rect.left) / width; // カーソル位置を0〜1で取得
+
+                const gifIndex = Math.floor(position * 4); // 4分割
+                gifContainers.forEach((container, index) => {
+                    if (index === gifIndex) {
+                        container.style.display = 'block';
+                        // カーソルが画像の中心になるように位置を調整
+                        const img = container.querySelector('img');
+                        const imgRect = img.getBoundingClientRect(); // 画像の実際のサイズを取得
+                        const imgWidth = imgRect.width;
+                        const imgHeight = imgRect.height;
+                        const textRect = centerText1Copy.getBoundingClientRect();
+                        container.style.left = `${event.clientX - img.offsetWidth / 2}px`;
+                        container.style.top = `${event.clientY - img.offsetHeight / 2}px`;
+
+                        const percentX = ((event.clientX - imgWidth / 2 - textRect.left) / textRect.width) * 100;
+                        const percentY = ((event.clientY - imgHeight / 2 - textRect.top) / textRect.height) * 100;
+                        const percentWidth = (imgWidth / textRect.width) * 100;
+                        const percentHeight = (imgHeight / textRect.height) * 100;
+
+                        centerText1Copy.style.clipPath = `inset(${percentY}% ${100 - percentX - percentWidth}% ${100 - percentY - percentHeight}% ${percentX}%)`;
+                    } else {
+                        container.style.display = 'none';
+                    }
+                });
+            });
+
+        });
+    });
+
+    </script>
+</body>
